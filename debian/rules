@@ -1,0 +1,34 @@
+#!/usr/bin/make -f
+# debian/rules for the Debian libxmu package.
+# Copyright © 2004 Scott James Remnant <scott@netsplit.com>
+# Copyright © 2005 Daniel Stone <daniel@fooishbar.org>
+# Copyright © 2005 David Nusinow <dnusinow@debian.org>
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+.PHONY: build
+build:
+	dh build --with quilt,autoreconf --builddirectory=build/ --parallel
+
+%:
+	dh $@ --with quilt,autoreconf --builddirectory=build/ --parallel
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		--disable-silent-rules \
+		--docdir=\$${prefix}/share/doc/libxmu-headers \
+		--with-xmlto \
+		--without-fop
+
+override_dh_auto_install:
+	dh_auto_install
+	find debian/tmp/usr/share/doc/libxmu-headers -name '*.xml' -delete
+
+override_dh_install-arch:
+	dh_install --fail-missing -Xusr/include -X.la
+
+override_dh_strip:
+	dh_strip -Nlibxmu6 -Nlibxmuu1
+	dh_strip -plibxmu6 --dbg-package=libxmu6-dbg
+	dh_strip -plibxmuu1 --dbg-package=libxmuu1-dbg
