@@ -3,23 +3,20 @@ Section: x11
 Priority: optional
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
 Build-Depends:
- debhelper (>= 9),
- dh-autoreconf,
+ debhelper-compat (= 13),
  libx11-dev (>= 1:0.99.2),
  libxt-dev (>= 1:0.99.1),
  libxext-dev (>= 1:0.99.1),
  pkg-config,
  quilt,
- automake,
- libtool,
  xutils-dev (>= 1:7.6+2),
 # devel-docs:
  xmlto (>= 0.0.22),
  xorg-sgml-doctools (>= 1:1.8),
  w3m,
-Standards-Version: 3.9.6
-Vcs-Git: git://anonscm.debian.org/git/pkg-xorg/lib/libxmu
-Vcs-Browser: https://anonscm.debian.org/cgit/pkg-xorg/lib/libxmu.git
+Standards-Version: 4.6.0
+Vcs-Git: https://salsa.debian.org/xorg-team/lib/libxmu.git
+Vcs-Browser: https://salsa.debian.org/xorg-team/lib/libxmu
 
 Package: libxmu6
 Section: libs
@@ -31,26 +28,6 @@ Description: X11 miscellaneous utility library
  libXmu provides a set of miscellaneous utility convenience functions for X
  libraries to use.  libXmuu is a lighter-weight version that does not depend
  on libXt or libXext; for more information, see libxmuu1.
- .
- More information about X.Org can be found at:
- <URL:http://www.X.org>
- .
- This module can be found at
- git://anongit.freedesktop.org/git/xorg/lib/libXmu
-
-Package: libxmu6-dbg
-Section: debug
-Architecture: any
-Multi-Arch: same
-Priority: extra
-Depends: ${shlibs:Depends}, ${misc:Depends}, libxmu6 (= ${binary:Version})
-Description: X11 miscellaneous utility library (debug package)
- libXmu provides a set of miscellaneous utility convenience functions for X
- libraries to use.  libXmuu is a lighter-weight version that does not depend
- on libXt or libXext; for more information, see libxmuu1.
- .
- This package contains the debug versions of the library found in libxmu6.
- Non-developers likely have little use for this package.
  .
  More information about X.Org can be found at:
  <URL:http://www.X.org>
@@ -94,26 +71,6 @@ Description: X11 miscellaneous micro-utility library
  This module can be found at
  git://anongit.freedesktop.org/git/xorg/lib/libXmu
 
-Package: libxmuu1-dbg
-Section: debug
-Architecture: any
-Multi-Arch: same
-Priority: extra
-Depends: ${shlibs:Depends}, ${misc:Depends}, libxmuu1 (= ${binary:Version})
-Description: X11 miscellaneous micro-utility library (debug package)
- libXmuu provides a set of miscellaneous utility convenience functions for X
- libraries to use.  It is a lighter version of libXmu that does not depend
- on libXt or libXext; for more information on libXmu, see libxmu6.
- .
- This package contains the debug versions of the library found in libxmuu1.
- Non-developers likely have little use for this package.
- .
- More information about X.Org can be found at:
- <URL:http://www.X.org>
- .
- This module can be found at
- git://anongit.freedesktop.org/git/xorg/lib/libXmu
-
 Package: libxmuu-dev
 Section: libdevel
 Architecture: any
@@ -139,7 +96,7 @@ Architecture: all
 Multi-Arch: foreign
 Depends:
  libx11-dev,
- x11proto-core-dev,
+ x11proto-dev,
  ${misc:Depends},
 Description: X11 miscellaneous utility library headers
  libXmu and libXmuu are miscellaneous utility libraries for X library

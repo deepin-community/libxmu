@@ -9,10 +9,10 @@
 
 .PHONY: build
 build:
-	dh build --with quilt,autoreconf --builddirectory=build/ --parallel
+	dh build --with quilt --builddirectory=build/
 
 %:
-	dh $@ --with quilt,autoreconf --builddirectory=build/ --parallel
+	dh $@ --with quilt --builddirectory=build/
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
@@ -25,10 +25,11 @@ override_dh_auto_install:
 	dh_auto_install
 	find debian/tmp/usr/share/doc/libxmu-headers -name '*.xml' -delete
 
-override_dh_install-arch:
-	dh_install --fail-missing -Xusr/include -X.la
+override_dh_install:
+	find debian/tmp -name '*.la' -delete
+	dh_install
 
 override_dh_strip:
 	dh_strip -Nlibxmu6 -Nlibxmuu1
-	dh_strip -plibxmu6 --dbg-package=libxmu6-dbg
-	dh_strip -plibxmuu1 --dbg-package=libxmuu1-dbg
+	dh_strip -plibxmu6 --dbgsym-migration='libxmu6-dbg (<< 2:1.1.3-1)'
+	dh_strip -plibxmuu1 --dbgsym-migration='libxmuu1-dbg (<< 2:1.1.3-1)'
